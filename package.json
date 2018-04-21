@@ -1,0 +1,37 @@
+{
+  "name": "lpgo-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run-script prettier",
+    "prettier": "prettier --config .prettierrc.yml --write \"./**/*.js\" \"!./coverage/**/*.js\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wakaid/lpgo-server.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wakaid/lpgo-server/issues"
+  },
+  "homepage": "https://github.com/wakaid/lpgo-server#readme",
+  "dependencies": {
+    "assert-plus": "^1.0.0",
+    "body-parser": "^1.18.2",
+    "eslint": "^4.10.0",
+    "eslint-plugin-mocha": "^4.11.0",
+    "eslint-plugin-prettier": "^2.6.0",
+    "expect.js": "^0.3.1",
+    "express": "^4.16.3",
+    "express-validation": "^1.0.2",
+    "joi": "^13.2.0",
+    "mongoose": "^5.0.15",
+    "nyc": "^11.3.0",
+    "prettier": "^1.11.1",
+    "underscore": "^1.9.0",
+    "uuid": "^3.2.1"
+  }
+}

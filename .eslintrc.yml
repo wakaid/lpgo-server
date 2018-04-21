@@ -1,0 +1,33 @@
+env:
+  es6: true
+  node: true
+  jasmine: true
+  mocha: true
+plugins:
+  - mocha
+  - prettier
+extends:
+  - 'eslint:recommended'
+  - 'plugin:mocha/recommended'
+parserOptions:
+  ecmaVersion: 8
+  ecmaFeatures:
+    experimentalObjectRestSpread: true
+rules:
+  'prettier/prettier': error
+  linebreak-style:
+    - error
+    - unix
+  quotes:
+    - error
+    - single
+    - avoidEscape: true
+  semi:
+    - error
+    - always
+  no-console: off
+  strict:
+    - error
+    - global
+  no-trailing-spaces:
+    - error

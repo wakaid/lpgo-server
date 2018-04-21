@@ -5,7 +5,7 @@ const expressValidation = require('express-validation');
 const handleRequest = require('../utils/handle_request_async');
 // const authenticate = require('../middlewares/authenticate_access_token');
 
-const OrderDAO = require('../daos/agent_dao');
+const OrderDAO = require('../daos/order_dao');
 
 module.exports = app => {
     const orderDAO = new OrderDAO(app.mongoConnection);
@@ -16,7 +16,7 @@ module.exports = app => {
             params: { agent_id: Joi.string().required() },
             body: {
                 lpg_id: Joi.string().required(),
-                quantitiy: Joi.number().required(),
+                quantity: Joi.number().required(),
                 total_price: Joi.number().required()
             }
         }),
@@ -24,7 +24,7 @@ module.exports = app => {
             const data = {
                 agent_id: req.params.agent_id,
                 lpg_id: req.body.lpg_id,
-                quantitiy: req.body.quantitiy,
+                quantity: req.body.quantity,
                 total_price: req.body.total_price
             };
 
@@ -65,6 +65,16 @@ module.exports = app => {
         }),
         handleRequest(async req => {
             return await orderDAO.notifyOrderCompleted(req.params.order_id);
+        })
+    );
+
+    app.get(
+        '/orders',
+        expressValidation({
+            query: { status: Joi.string().required() }
+        }),
+        handleRequest(async req => {
+            return await orderDAO.getOrderByStatus(req.query.status);
         })
     );
 };

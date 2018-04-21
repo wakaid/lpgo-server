@@ -1,5 +1,6 @@
 'use strict';
 
+const _ = require('underscore');
 const assert = require('assert-plus');
 const orderStatuses = require('./enums/order_status');
 
@@ -109,7 +110,7 @@ class OrderDAO {
         } catch (e) {
             throw {
                 error_code: this.ErrorCodes.ORDER_MONGOOSE_ERROR,
-                message: 'Error when creating order'
+                message: 'Error when paying order'
             };
         }
     }
@@ -121,7 +122,7 @@ class OrderDAO {
             const order = await this.models.Order.findOneAndUpdate(
                 {
                     _id: orderId,
-                    status: orderStatuses.PROCESSED
+                    status: orderStatuses.PAID
                 },
                 {
                     $set: {
@@ -139,6 +140,25 @@ class OrderDAO {
             }
 
             return order.toJSON();
+        } catch (e) {
+            throw {
+                error_code: this.ErrorCodes.ORDER_MONGOOSE_ERROR,
+                message: 'Error when notify order completed'
+            };
+        }
+    }
+
+    async getOrderByStatus(status) {
+        try {
+            const orders = await this.models.Order.find({ status });
+
+            if (!_.isObject(orders)) {
+                return [];
+            }
+
+            return orders.map(order => {
+                return order.toJSON();
+            });
         } catch (e) {
             throw {
                 error_code: this.ErrorCodes.ORDER_MONGOOSE_ERROR,

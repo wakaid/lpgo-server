@@ -51,9 +51,7 @@ module.exports = app => {
             params: { agent_id: Joi.string().required() }
         }),
         handleRequest(async req => {
-            return await lpgDAO.getLpgsDetailForAgent(
-                req.params.agent_id
-            );
+            return await lpgDAO.getLpgsDetailForAgent(req.params.agent_id);
         })
     );
 };
